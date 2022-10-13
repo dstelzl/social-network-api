@@ -75,7 +75,17 @@ module.exports = {
   },
 
   deleteFriend(req, res) {
-    console.log('you made it to the delete friend');
-    res.json('deleted friend');
+    User.deleteByIdAndUpdate(
+      req.params.userId,
+      { $pull: { friends: req.params.friendId } },
+      { new: true }
+    )
+
+      .then((userData) => {
+        !userData
+          ? res.status(404).json({ message: 'No user with that ID' })
+          : res.json(userData);
+      })
+      .catch((err) => res.status(500).json(err));
   },
 };
