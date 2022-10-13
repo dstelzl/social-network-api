@@ -15,7 +15,8 @@ const thoughtSchema = new Schema(
       default: Date.now,
     },
     userName: {
-     required: true,
+     type: String,
+      required: true,
     },
     reactions: [Reaction],
     
